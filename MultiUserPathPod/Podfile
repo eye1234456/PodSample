@@ -1,0 +1,52 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '13.0'
+
+target 'MultiUserPathPod' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for MultiUserPathPod
+  #################引入hellosdk---begin---#######################
+  #用户电脑用户名,调用whoami的名字
+  user_name = ENV['USER']
+  #不同用户名对应的key、sdk对应的本地路径 xxx.podspec
+  user_hellosdk_localpath_dict =
+  {
+    "zhangsan" => "/Users/zhangsan/Documents/hellosdk",
+    "lisi" => "/Users/lisi/Download/iOS/hellosdk",
+    "wangwu" => "/Users/wangwu/Desktop/hellosdk",
+    "flow" => "/Users/flow/Documents/workspace/podLibs/MyTestLibs",
+  }
+  #获取当前用户对应的路径
+  hellodk_localpath = user_hellosdk_localpath_dict[user_name]
+  if hellodk_localpath.nil?
+    # 如果当前用户没有配置本地路径，则默认加载git上的路径
+    puts "如果当前用户没有配置本地路径，则默认加载git上的路径" #打印说明
+    hellodk_git_url = "https://github.com/eye1234456/MyTestLibs.git"
+    # debug模式引入一个debug的sdk
+    pod 'hellosdk_uat_static', :git => hellodk_git_url, :configurations => ['Debug']
+    # release模式引入一个release的sdk
+    pod 'hellosdk_release_static', :git => hellodk_git_url, :configurations => ['Release']
+  else
+    # 如果配置了本地path，则使用path的方式依赖
+    puts "已经配置了本地路径，通过path的方式加载数据" #打印说明
+    # debug模式引入一个debug的sdk
+    pod 'hellosdk_uat_static', :path => hellodk_localpath, :configurations => ['Debug']
+    # release模式引入一个release的sdk
+    pod 'hellosdk_release_static', :path => hellodk_localpath, :configurations => ['Release']
+  end
+  #################引入hellosdk---end---#######################
+  
+  pod "AFNetworking"
+  pod "Masonry"
+
+  target 'MultiUserPathPodTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'MultiUserPathPodUITests' do
+    # Pods for testing
+  end
+
+end
