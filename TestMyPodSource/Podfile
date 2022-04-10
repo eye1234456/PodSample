@@ -1,0 +1,25 @@
+# Uncomment the next line to define a global platform for your project
+ platform :ios, '12.0'
+
+target 'TestMyPodSource' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for TestMyPodSource
+  pod "AFNetworking"
+  # 这种方式会引用远程的,文件为：Pods/Pods/xxx
+#  pod "hellosdk_source", :podspec => '/Users/aaa/Documents/podLibs/MyTestLibs/hellosdk_source.podspec'
+# 这种方式关联本地的，引用的是关联，文件夹为：Pods/Development Pods/xxxx
+  pod "hellosdk_source", :path => '/Users/aaa/Documents/podLibs/MyTestLibs'
+
+
+  target 'TestMyPodSourceTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'TestMyPodSourceUITests' do
+    # Pods for testing
+  end
+
+end
