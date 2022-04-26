@@ -1,0 +1,15 @@
+# Uncomment the next line to define a global platform for your project
+ platform :ios, '12.0'
+
+target 'TestAAA' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for TestAAA
+  pod 'MyLayout'
+  pod 'ReactiveObjC'
+  pod 'AFNetworking'
+  pod 'SDWebImage'
+  pod 'Masonry'
+
+end
